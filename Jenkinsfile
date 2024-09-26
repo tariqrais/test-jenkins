@@ -9,11 +9,5 @@ pipeline{
                 git url:'https://github.com/tariqrais/test-jenkins.git', branch: 'main'
             }    
         }
-        stage('Install Dependencies') {
-            steps {
-                // Install dependencies from requirements.txt
-                sh 'pip install -r requirements.txt'
-            }
-        }
     }
 }
