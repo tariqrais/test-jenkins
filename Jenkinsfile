@@ -15,11 +15,5 @@ pipeline{
                 bat 'pip install -r requirements.txt'
             }
         }
-        stage('Run Application') {
-            steps {
-                // Run the application in the background
-                bat 'start /B python app.py'  // 'start /B' to run in the background
-            }
-        }
     }
 }
