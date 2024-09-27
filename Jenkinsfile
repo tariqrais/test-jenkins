@@ -14,5 +14,12 @@ pipeline{
                 sh 'pip install -r requirements.txt'
             }
         }
+            stage('Build docker') {
+            steps {
+                
+                docker build -t flask-app . 
+            }
+        }
+    
     }
 }
