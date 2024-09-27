@@ -14,10 +14,19 @@ pipeline{
                 bat 'pip install -r requirements.txt'
             }
         }
-            stage('Build docker') {
-            steps {
+        stage('Build docker') {
+             steps {
                 
                 bat 'docker build -t flask-app .' 
+            }
+        } 
+        stage('Docker Push') {
+            steps {
+                
+                withCredentials([usernamePassword(credentialsId: 'dockerHub' , passwordVariable:'dockerHubPassword' , usernameVariable: 'dockerHubUser')]){
+                    bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    bat 'docker push tariqdoc/flask-app:latest'
+                }
             }
         } 
     }
