@@ -18,6 +18,7 @@ pipeline{
              steps {
                 
                 bat 'docker build -t flask-app .' 
+                bat 'docker tag flask-app tariqdoc/flask-app:latest'
             }
         } 
         stage('Docker Push') {
