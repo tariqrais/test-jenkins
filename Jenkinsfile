@@ -1,4 +1,3 @@
-
 pipeline{
     agent any
     
@@ -15,5 +14,11 @@ pipeline{
                 bat 'pip install -r requirements.txt'
             }
         }
+            stage('Build docker') {
+            steps {
+                
+                docker build -t flask-app . 
+            }
+        } 
     }
 }
