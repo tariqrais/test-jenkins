@@ -11,7 +11,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 // Install dependencies from requirements.txt
-                sh 'pip install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
             stage('Build docker') {
@@ -19,7 +19,6 @@ pipeline{
                 
                 docker build -t flask-app . 
             }
-        }
-    
+        } 
     }
 }
