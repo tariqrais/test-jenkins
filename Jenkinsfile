@@ -31,7 +31,7 @@ pipeline{
             }
         }    
 
-        stage('deploy app'){
+        stage('deploy to KIND'){
             steps {
                 bat 'kubectl apply -f deployment.yaml'
 
