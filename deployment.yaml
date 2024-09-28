@@ -17,5 +17,6 @@ spec:
       containers:
       - name: flask-app
         image: tariqdoc/flask-app:%BUILD_NUMBER%
+        imagePullPolicy: Always
         ports:
         - containerPort: 8081
