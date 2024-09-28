@@ -33,7 +33,7 @@ pipeline{
         stage('deploy to KIND'){
             steps {
                 script{
-                     kubernetesDeploy (configs: 'deployment.yaml'kubeconfigId: 'kubeconfigpwd')
+                     kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'kubeconfigpwd')
                      bat 'kubectl apply -f deployment.yaml'
                 }
             }
