@@ -1,5 +1,8 @@
 pipeline{
     agent any
+        environment {
+        KUBECONFIG = credentials('mykubeconfig') // Using the credential ID
+    }
     
     stages{
         stage("git checkout"){
@@ -33,7 +36,6 @@ pipeline{
         stage('deploy to KIND'){
             steps {
                 script{
-                     kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'kubeconfigpwd')
                      bat 'kubectl apply -f deployment.yaml'
                 }
             }
