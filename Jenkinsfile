@@ -20,7 +20,7 @@ pipeline{
         stage('Build docker') {
              steps {
                 bat 'docker build -t flask-app .' 
-                bat 'docker tag flask-app tariqdoc/flask-app:latest'
+                bat 'docker tag flask-app tariqdoc/flask-app:${env.BUILD_NUMBER}'
             }
         } 
         stage('Docker Push') {
@@ -28,7 +28,7 @@ pipeline{
 
                 withCredentials([usernamePassword(credentialsId: 'dockerHub' , passwordVariable:'dockerHubPassword' , usernameVariable: 'dockerHubUser')]){
                     bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    bat 'docker push tariqdoc/flask-app:latest'
+                    bat 'docker push tariqdoc/flask-app:${env.BUILD_NUMBER}'
                 }
             }
         }    
