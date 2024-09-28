@@ -1,5 +1,8 @@
 pipeline{
     agent any
+     environment {
+        KUBECONFIG = credentials('kubeconfig-kind')
+    }
     
     stages{
         stage("git checkout"){
