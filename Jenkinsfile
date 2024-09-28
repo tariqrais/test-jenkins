@@ -16,7 +16,6 @@ pipeline{
             }
         stage('Build docker') {
              steps {
-
                 bat 'docker build -t flask-app .' 
                 bat 'docker tag flask-app tariqdoc/flask-app:%BUILD_NUMBER%'
             }
@@ -33,8 +32,10 @@ pipeline{
 
         stage('deploy to KIND'){
             steps {
-                bat 'kubectl apply -f deployment.yaml'
-
+                script{
+                     kubernetesDeploy (configs: 'deployment.yaml'kubeconfigId: 'kubeconfigpwd')
+                     bat 'kubectl apply -f deployment.yaml'
+                }
             }
         }
     }
