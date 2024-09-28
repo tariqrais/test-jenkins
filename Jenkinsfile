@@ -38,6 +38,7 @@ pipeline{
                 script{
                      bat 'kubectl apply -f deployment.yaml'
                      bat 'kubectl apply -f service.yaml'
+                     bat 'kubectl port-forward service/flask-app-service 8082:8081'
                 }
             }
         }
