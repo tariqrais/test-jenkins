@@ -35,7 +35,6 @@ pipeline{
 
         stage('Deploy app onto EC2'){
             steps {
-                steps {
                      withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]){
                     // Use SSH to connect to the EC2 instance and deploy the application
                     sshagent(['ec2-ssh-key']) {
@@ -46,7 +45,7 @@ pipeline{
                              docker rm flask-app || true; `
                              docker run -d --name flask-app -p 8081:5000 tariqdoc/flask-app:latest"
                     '''
-                    }
+                    
                   }
                 }
             }
