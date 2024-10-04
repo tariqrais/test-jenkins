@@ -1,8 +1,8 @@
 pipeline{
     agent any
-        environment {
-        KUBECONFIG = credentials('mykubeconfig') // Using the credential ID
-    }
+    //     environment {
+    //     KUBECONFIG = credentials('mykubeconfig') // Using the credential ID
+    // }
     
     stages{
         stage("git checkout"){
@@ -23,15 +23,15 @@ pipeline{
                 bat 'docker tag flask-app tariqdoc/flask-app:latest'
             }
         } 
-        // stage('Docker Push') {
-        //     steps {
+        stage('Docker Push') {
+            steps {
 
-        //         withCredentials([usernamePassword(credentialsId: 'dockerHub' , passwordVariable:'dockerHubPassword' , usernameVariable: 'dockerHubUser')]){
-        //             bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-        //             bat 'docker push tariqdoc/flask-app:latest'
-        //         }
-        //     }
-        // }    
+                withCredentials([usernamePassword(credentialsId: 'dockerHub' , passwordVariable:'dockerHubPassword' , usernameVariable: 'dockerHubUser')]){
+                    bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    bat 'docker push tariqdoc/flask-app:latest'
+                }
+            }
+        }    
 
         stage('Deploy app onto EC2'){
             steps {
