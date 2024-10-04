@@ -40,9 +40,9 @@ pipeline{
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def command = '''
                             ssh -i %SSH_KEY% -o StrictHostKeyChecking=no ubuntu@35.173.122.237 '
-                                docker pull tariqdoc/flask-app:latest && \
-                                docker stop flask-app || true && \
-                                docker rm flask-app || true && \
+                                docker pull tariqdoc/flask-app:latest && 
+                                docker stop flask-app || echo 'Container not running' && 
+                                docker rm flask-app || echo 'Container not found' &&
                                 docker run -d --name flask-app -p 8081:5000 tariqdoc/flask-app:latest
                             '
                         '''
