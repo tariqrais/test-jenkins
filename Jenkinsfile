@@ -36,13 +36,13 @@ pipeline{
         stage('Deploy app onto EC2'){
             steps {
                     // Use SSH to connect to the EC2 instance and deploy the application
-                    sshagent(['aws-creds']) {
+                    sshagent(['ec2-ssh-key']) {
                     bat '''
                         ssh -o StrictHostKeyChecking=no ubuntu@35.173.122.237 << EOF
                             docker pull tariqdoc/flask-app:latest
                             docker stop flask-app || true
                             docker rm flask-app || true
-                            docker run -d --name flask-app -p 80:8081 tariqdoc/flask-app:latest
+                            docker run -d --name flask-app -p 8081:5000 tariqdoc/flask-app:latest
                         EOF
                     '''
                 }
