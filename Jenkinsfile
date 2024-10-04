@@ -47,7 +47,7 @@ pipeline{
                             '
                         '''
                         bat command
-                  }
+                   }
                 }
             }
         }
