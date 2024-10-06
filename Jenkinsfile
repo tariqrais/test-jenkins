@@ -40,7 +40,7 @@ pipeline{
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def ec2_ip = '54.145.201.67'
                         def ec2_user = 'ubuntu'
-                        def key_path = '%SSH_KEY%'
+                        def key_path = 'C:\Users\Tariq\.ssh'
                         def command = '''
                             ssh -i %key_path% -o StrictHostKeyChecking=no ubuntu@54.145.201.67 "
                                 docker pull tariqdoc/flask-app:latest && 
