@@ -42,7 +42,7 @@ pipeline{
                         def key_path = "%SSH_KEY%"  // Using the SSH key from Jenkins securely
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def command = '''
-                            "C:\\Windows\\System32\\OpenSSH\\ssh.exe -i "%key_path%" -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} " +
+                            "C:\\Windows\\System32\\OpenSSH\\ssh.exe -i "%SSH_KEY%" -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} " +
                             "\"docker pull tariqdoc/flask-app:latest && docker stop flask-app || true && docker rm flask-app || true && docker run -d --name flask-app -p 8081:8081 tariqdoc/flask-app:latest\""
 
                         '''
