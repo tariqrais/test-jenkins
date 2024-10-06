@@ -46,7 +46,7 @@ pipeline{
                             docker pull tariqdoc/flask-app:latest && 
                             docker stop flask-app || echo 'Container not running' && 
                             docker rm flask-app || echo 'Container not found' && 
-                            docker run -d --name flask-app -p 8081:5000 tariqdoc/flask-app:latest
+                            docker run -d --name flask-app -p 8081:8081 tariqdoc/flask-app:latest
                             "
                         '''
                         bat command
