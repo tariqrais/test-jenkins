@@ -14,21 +14,21 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 // Install dependencies from requirements.txt
-                bat 'pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt'
                 }
             }
         stage('Build docker') {
              steps {
-                bat 'docker build -t flask-app .' 
-                bat 'docker tag flask-app tariqdoc/flask-app:latest'
+                sh 'docker build -t flask-app .' 
+                sh 'docker tag flask-app tariqdoc/flask-app:latest'
             }
         } 
         stage('Docker Push') {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'dockerHub' , passwordVariable:'dockerHubPassword' , usernameVariable: 'dockerHubUser')]){
-                    bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    bat 'docker push tariqdoc/flask-app:latest'
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    sh 'docker push tariqdoc/flask-app:latest'
                 }
             }
         }    
@@ -37,16 +37,16 @@ pipeline{
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     script {
-                        def ec2_ip = '54.145.201.67'  // Your EC2 public IP
+                        def ec2_ip = '54.159.27.207'  // Your EC2 public IP
                         def ec2_user = 'ubuntu'
-                        def key_path = "%SSH_KEY%"  // Using the SSH key from Jenkins securely
+                        def key_path = "${SSH_KEY}"  // Using the SSH key from Jenkins securely
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def command = '''
-                            "C:\\Windows\\System32\\OpenSSH\\ssh.exe -i "%SSH_KEY%" -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} " +
+                            "ssh -i "${key_path}" -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} " +
                             "\"docker pull tariqdoc/flask-app:latest && docker stop flask-app || true && docker rm flask-app || true && docker run -d --name flask-app -p 8081:8081 tariqdoc/flask-app:latest\""
 
                         '''
-                        bat command
+                        sh command
                    }
                 }
             }
