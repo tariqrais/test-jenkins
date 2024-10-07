@@ -37,12 +37,12 @@ pipeline{
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     script {
-                        def ec2_ip = '54.159.27.207'  // Your EC2 public IP
+                        def ec2_ip = 'ec2-54-159-27-207.compute-1.amazonaws.com'  // Your EC2 public IP
                         def ec2_user = 'ubuntu'
                         // def key_path = "${SSH_KEY}"  // Using the SSH key from Jenkins securely
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def command = '''
-                            ssh -i /var/lib/jenkins/.ssh/new-key.pem -o StrictHostKeyChecking=no ubuntu@ec2-54-159-27-207.compute-1.amazonaws.com "
+                            ssh -i /var/lib/jenkins/.ssh/new-key.pem -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} "
                             docker pull tariqdoc/flask-app:latest &&
                             docker stop flask-app || true &&
                             docker rm flask-app || true &&
