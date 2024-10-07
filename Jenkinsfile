@@ -37,7 +37,6 @@ pipeline{
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     script {
-                        sh "chmod 600 ${SSH_KEY}"
                         def ec2_ip = '54.159.27.207'  // Your EC2 public IP
                         def ec2_user = 'ubuntu'
                         // def key_path = "${SSH_KEY}"  // Using the SSH key from Jenkins securely
