@@ -43,7 +43,7 @@ pipeline{
                         // def key_path = "${SSH_KEY}"  // Using the SSH key from Jenkins securely
                         // Use SSH to connect to the EC2 instance and deploy the application
                         def command = '''
-                            ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} "
+                            ssh -i /home/tariq/new-key.pem -o StrictHostKeyChecking=no ${ec2_user}@${ec2_ip} "
                             docker pull tariqdoc/flask-app:latest &&
                             docker stop flask-app || true &&
                             docker rm flask-app || true &&
